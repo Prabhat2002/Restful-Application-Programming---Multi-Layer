@@ -1,0 +1,6 @@
+@EndUserText.label: 'company service'
+define service Zsrv_comp {
+  expose zproj_comp_hdr;
+  expose zproj_comp_item;
+  expose zproj_comp_inv;
+}
