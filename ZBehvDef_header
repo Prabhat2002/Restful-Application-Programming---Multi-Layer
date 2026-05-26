@@ -1,0 +1,59 @@
+unmanaged implementation in class zbp_i_comp_hdr unique;
+//strict ( 2 );
+
+define behavior for ZI_COMP_HDR //alias <alias_name>
+//late numbering
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+  field ( readonly :update) Icon, Name;
+  association _Item { create; }
+  mapping for zdt_comp_hdr control ZST_COMP_HDR
+  {
+    Ctc = ctc;
+    Icon = icon;
+    Lastchangedat = lastchangedat;
+    Location = location;
+    Name = name;
+    Role= role;
+  }
+}
+
+define behavior for ZI_COMP_ITEM //alias <alias_name>
+//late numbering
+lock dependent by _hdr
+authorization dependent by _hdr
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Icon, Name;
+  field ( readonly:update ) Jobid;
+  association _hdr;
+  association _inv { create; }
+  mapping for zdt_comp_ITEM control ZST_COMP_ITEM
+  {
+    Icon = icon;
+    Name = name;
+    JobId = jobid;
+    Message = message;
+    Lastchangedat = lastchangedat;
+  }
+}
+
+define behavior for zi_comp_inv //alias <alias_name>
+//late numbering
+//lock dependent by <no_to_master_association found>
+//authorization dependent by <no_to_master_association found>
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Icon, Jobid, Name;
+  field ( readonly:update ) status;
+  association _ITEM;
+}
