@@ -1,0 +1,37 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'CDS view for Company Information'
+@Metadata.ignorePropagatedAnnotations: true
+define root view entity zproj_comp_hdr as projection on ZI_COMP_HDR
+{
+      @UI.facet: [{
+  purpose: #STANDARD,
+  position: 10,
+  label: 'Header',
+  type: #IDENTIFICATION_REFERENCE
+  },{
+  purpose: #STANDARD,
+  position: 20,
+  label: 'Item',
+  type: #LINEITEM_REFERENCE,
+  targetElement: '_Item'}]
+
+  @UI.lineItem: [{ position: 10, label: 'Icon' }]
+  @UI.identification: [{ position: 10, label: 'Icon' }]
+  key Icon,
+  @UI.lineItem: [{ position: 10, label: 'Name' }]
+  @UI.identification: [{ position: 10, label: 'Name' }]
+  key Name,
+    @UI.lineItem: [{ position: 10, label: 'Location' }]
+  @UI.identification: [{ position: 10, label: 'Location' }]
+  Location,
+    @UI.lineItem: [{ position: 10, label: 'Role' }]
+  @UI.identification: [{ position: 10, label: 'Role' }]
+  Role,
+    @UI.lineItem: [{ position: 10, label: 'Cost to Company' }]
+  @UI.identification: [{ position: 10, label: 'Cost to Company' }]
+  Ctc,
+  @UI.hidden: true
+  Lastchangedat,
+  /* Associations */
+  _Item : redirected to composition child zproj_comp_item
+}
