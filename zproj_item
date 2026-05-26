@@ -1,0 +1,40 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Projection of Company  Item Information'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity zproj_comp_item as projection on ZI_COMP_ITEM
+{
+  @UI.facet: [{
+  purpose: #STANDARD,
+  position: 10,
+  label: 'ITEM',
+  type: #IDENTIFICATION_REFERENCE
+  },{
+  purpose: #STANDARD,
+  position: 20,
+  label: 'Item',
+  type: #LINEITEM_REFERENCE,
+  targetElement: '_inv'}]
+
+  @UI.lineItem: [{ position: 10, label: 'Icon' }]
+  @UI.identification: [{ position: 10, label: 'Icon' }]
+  key Icon,
+  
+  @UI.lineItem: [{ position: 20, label: 'Name' }]
+  @UI.identification: [{ position: 20, label: 'Name' }]
+  key Name,
+  
+  @UI.lineItem: [{ position: 30, label: 'Job Id' }]
+  @UI.identification: [{ position: 30, label: 'Job Id' }]
+  key Jobid,
+  
+  @UI.lineItem: [{ position: 40, label: 'Message' }]
+  @UI.identification: [{ position: 40, label: 'Message' }]
+  Message,
+  
+  @UI.lineItem: [{ position: 50, label: 'Last Change' }]
+  @UI.identification: [{ position: 50, label: 'Last Change' }]
+  Lastchangedat,
+  /* Associations */
+  _hdr : redirected to parent zproj_comp_hdr,
+  _inv : redirected to composition child zproj_comp_inv
+}
