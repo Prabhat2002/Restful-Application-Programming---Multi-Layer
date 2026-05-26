@@ -1,0 +1,23 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'CDS view for Company Item Information'
+@Metadata.ignorePropagatedAnnotations: true
+@ObjectModel.usageType:{
+  serviceQuality: #X,
+  sizeCategory: #S,
+  dataClass: #MIXED
+}
+/*+[hideWarning] { "IDS" : [ "CARDINALITY_CHECK" ]  } */
+define view entity ZI_COMP_ITEM as select from zdt_comp_item 
+association to parent ZI_COMP_HDR as _hdr on $projection.Icon = _hdr.Icon
+                                         and $projection.Name = _hdr.Name
+ composition[0..*] of zi_comp_inv as _inv                                                                              
+ {
+  key icon as Icon,
+  key name as Name,
+  key jobid as Jobid,
+  message as Message,
+  lastchangedat as Lastchangedat,
+  _hdr,
+  _inv
+}
